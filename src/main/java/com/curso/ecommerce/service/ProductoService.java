@@ -1,5 +1,6 @@
 package com.curso.ecommerce.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.curso.ecommerce.model.Producto;
@@ -9,4 +10,5 @@ public Producto save(Producto producto);
 public Optional<Producto> get(Integer Id);
 public void Update(Producto producto);
 public void Delete(Integer Id);
+public List<Producto> findAll();
 }
