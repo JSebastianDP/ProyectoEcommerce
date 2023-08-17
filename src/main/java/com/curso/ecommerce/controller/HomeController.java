@@ -56,7 +56,7 @@ public class HomeController {
 		DetalleOrden detalleOrden = new DetalleOrden();
 		Producto producto = new Producto();
 		double sumaTotal = 0;
-		
+
 		Optional<Producto> optionalProducto = productoService.get(id);
 		log.info("Producto añadido: {}", optionalProducto.get());
 		log.info("Cantidad: {}", cantidad);
@@ -64,12 +64,13 @@ public class HomeController {
 		detalleOrden.setCantidad(cantidad);
 		detalleOrden.setPrecio(producto.getPrecio());
 		detalleOrden.setNombre(producto.getNombre());
-		detalleOrden.setPrecio(producto.getPrecio()*cantidad);
+		detalleOrden.setTotal(producto.getPrecio() * cantidad);
 		detalleOrden.setProducto(producto);
-		sumaTotal = detalles.stream().mapToDouble(dt->dt.getTotal()).sum();
+		detalles.add(detalleOrden);
+		sumaTotal = detalles.stream().mapToDouble(dt -> dt.getTotal()).sum();
 		orden.setTotal(sumaTotal);
 		model.addAttribute("cart", detalles);
-		model.addAttribute("orden", orden); 
+		model.addAttribute("orden", orden);
 		return "usuario/carrito";
 	}
 
