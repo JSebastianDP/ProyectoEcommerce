@@ -8,4 +8,5 @@ public interface iOrdenService {
 	
 	List<Orden> findAll();
 	Orden save(Orden orden);
+	String generarNumeroOrden();
 }
