@@ -77,6 +77,8 @@ public class UsuarioController {
 		model.addAttribute("ordenes", ordenes);
 		return "usuario/compras";
 	}
+	
+	//Metodo para ver el detalle de la compra
 	@GetMapping("/detalle/{id}")
 	public String detalleCompra(@PathVariable Integer id, HttpSession session, Model model) {
 		//Sesion
@@ -87,4 +89,15 @@ public class UsuarioController {
 		
 		return "usuario/detallecompra";
 	}
+	
+	
+	//Metodo para cerrar sesion 
+	@GetMapping("/cerrar")
+	public String cerrarSesion(HttpSession session) {
+		session.removeAttribute("idUsuario");
+		return "redirect:/";
+	}
+	
+	
+	
 }
