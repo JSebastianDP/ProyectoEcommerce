@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.management.AttributeValueExp;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +29,7 @@ import com.curso.ecommerce.service.ProductoService;
 import com.curso.ecommerce.service.iDetalleOrdenService;
 import com.curso.ecommerce.service.iOrdenService;
 
-import jakarta.servlet.http.HttpSession;
+
 
 @Controller
 @RequestMapping("/")

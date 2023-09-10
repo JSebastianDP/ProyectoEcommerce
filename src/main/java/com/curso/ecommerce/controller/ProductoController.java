@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,7 +24,7 @@ import com.curso.ecommerce.service.ProductoService;
 import com.curso.ecommerce.service.UploadFileService;
 import com.curso.ecommerce.service.UsuarioServiceImpl;
 
-import jakarta.servlet.http.HttpSession;
+
 
 @Controller
 @RequestMapping("/productos")

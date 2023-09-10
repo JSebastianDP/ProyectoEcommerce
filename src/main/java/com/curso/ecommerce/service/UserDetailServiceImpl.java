@@ -2,6 +2,7 @@ package com.curso.ecommerce.service;
 
 import java.util.Optional;
 
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,8 @@ import org.springframework.stereotype.Service;
 
 import com.curso.ecommerce.model.Usuario;
 
-import jakarta.servlet.http.HttpSession;
+import javax.servlet.http.HttpSession;
+
 
 @Service
 public class UserDetailServiceImpl implements UserDetailsService{
@@ -37,7 +39,7 @@ public class UserDetailServiceImpl implements UserDetailsService{
 			log.info("Esto es el id del usuario: {}", optionalUser.get().getId());
 			session.setAttribute("idUsuario", optionalUser.get().getId());
 			Usuario usuario = optionalUser.get();
-			return User.builder().username(usuario.getNombre()).password(bCrypt.encode(usuario.getPassword())).roles(usuario.getTipo()).build();
+			return User.builder().username(usuario.getNombre()).password(usuario.getPassword()).roles(usuario.getTipo()).build();
 		}else {
 			throw new UsernameNotFoundException("Usuario no encontrado");
 		}

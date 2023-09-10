@@ -3,9 +3,12 @@ package com.curso.ecommerce.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +21,7 @@ import com.curso.ecommerce.model.Usuario;
 import com.curso.ecommerce.service.IUsuarioService;
 import com.curso.ecommerce.service.iOrdenService;
 
-import jakarta.servlet.http.HttpSession;
+
 
 @Controller
 @RequestMapping("/usuario")
@@ -31,6 +34,8 @@ public class UsuarioController {
 	
 	@Autowired
 	private iOrdenService ordenService;
+	
+	BCryptPasswordEncoder passEncode = new BCryptPasswordEncoder();
 
 	// Usuario registro
 	@GetMapping("/registro")
@@ -42,6 +47,7 @@ public class UsuarioController {
 	public String save(Usuario usuario) {
 		logger.info("Usuario registro: {}", usuario);	
 		usuario.setTipo("USER");
+		usuario.setPassword(passEncode.encode(usuario.getPassword()));
 		usuarioService.save(usuario);
 		return "redirect:/";
 	}
@@ -51,11 +57,11 @@ public class UsuarioController {
 		return "usuario/login";
 	}
 	
-	@PostMapping("/acceder")
+	@GetMapping("/acceder")
 	public String acceder(Usuario usuario, HttpSession session) {
 		logger.info("Accesos: {}", usuario);
-		Optional<Usuario> user = usuarioService.findByEmail(usuario.getEmail());
-		//logger.info("El usuario obtenido es: {}", user.get());
+		Optional<Usuario> user = usuarioService.findById(Integer.parseInt(session.getAttribute("idUsuario").toString()));
+		logger.info("El usuario obtenido es: {}", user.get());
 		if(user.isPresent()) {
 			session.setAttribute("idUsuario", user.get().getId());
 			if(user.get().getTipo().equals("ADMIN")) {
